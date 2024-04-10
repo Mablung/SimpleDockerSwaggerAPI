@@ -1,0 +1,23 @@
+version: "3"
+services:
+     redis: 
+        image: redis
+        container_name: redis_api
+        ports: 
+            - "6379:6379"
+     productapi-app:
+         container_name: suspicious-johnson
+         image: tiklagelsinapi:v4
+         restart: always
+         build: .
+         ports:
+           - "81:80"
+         links:
+           - mongo
+     mongo:
+           container_name: mongo
+           image: mongo
+           volumes:
+             - ./data:/data/db
+           ports:
+             - '27018:27017'
